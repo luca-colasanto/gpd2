@@ -58,26 +58,22 @@ installed, you should be good to go.
 
 2. Install OpenCV 3.4 ([tutorial](https://www.python36.com/how-to-install-opencv340-on-ubuntu1604/)).
 
-3. Clone the [**GPD**](https://github.ccs.neu.edu/atp/gpd_no_ros) repository into some
-folder:
+3. Clone the repository into some folder:
 
    ```
-   cd <location_of_your_workspace>
-   git clone https://github.ccs.neu.edu/atp/gpd_no_ros gpd
+   git clone https://github.com/atp/gpd2
    ```
 
-4. Build the GPD package:
+4. Build the package:
 
    ```
-   cd gpd
+   cd gpd2
    mkdir build && cd build
    cmake ..
    make -j
-   sudo make install
    ```
 
-The `sudo make install` step is optional. It'll install GPD so that it can be used by other projects as a shared library (e.g., in the [ROS wrapper for GPD](https://github.ccs.neu.edu/atp/gpd_ros)).
-
+You can optionally install GPD with `sudo make install` so that it can be used by other projects as a shared library.
 <a name="pcd"></a>
 ## 3) Generate Grasps for a Point Cloud File
 
