@@ -88,7 +88,7 @@ In the window that comes up (like the one shown below), press *r* to reset the
 camera origin and then *q* to close the window. The output should look similar
 to the screenshot shown below.
 
-<img src="readme/file.png" alt="" width="60%" border="0" />
+<img src="readme/file.png" alt="" width="30%" border="0" />
 
 Generate some grasp poses and their corresponding images/descriptors:
 
