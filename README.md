@@ -74,6 +74,7 @@ installed, you should be good to go.
    ```
 
 You can optionally install GPD with `sudo make install` so that it can be used by other projects as a shared library.
+
 <a name="pcd"></a>
 ## 3) Generate Grasps for a Point Cloud File
 
