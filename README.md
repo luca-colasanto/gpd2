@@ -84,9 +84,7 @@ Run GPD on an point cloud file (PCD or PLY):
    ./detect_grasps ../cfg/eigen_params.cfg ../tutorials/krylon.pcd
    ```
 
-In the window that comes up (like the one shown below), press *r* to reset the
-camera origin and then *q* to close the window. The output should look similar
-to the screenshot shown below.
+The output should look similar to the screenshot shown below. The window is the PCL viewer. You can press [q] to close the window and [h] to see a list of other commands.
 
 <img src="readme/file.png" alt="" width="30%" border="0" />
 
