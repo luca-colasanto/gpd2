@@ -61,7 +61,7 @@ installed, you should be good to go.
 3. Clone the repository into some folder:
 
    ```
-   git clone https://github.com/atp/gpd2
+   git clone https://github.com/atenpas/gpd2
    ```
 
 4. Build the package:
