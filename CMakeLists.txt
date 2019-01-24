@@ -16,13 +16,6 @@ add_definitions(${PCL_DEFINITIONS})
 #find_package(OpenCV REQUIRED)
 find_package(OpenCV REQUIRED PATHS /usr/local NO_DEFAULT_PATH)
 
-option(BUILD_PYGPD "Build Python bindings" OFF)
-if(BUILD_PYGPD)
-  add_subdirectory(pybind11)
-  pybind11_add_module(pygpd bindings/pygpd/pygpd_pybind.cpp)
-  target_link_libraries(pygpd PRIVATE ${PCL_LIBRARIES} ${OpenCV_LIBRARIES})
-endif()
-
 ## Set compiler optimization flags
 # set(CMAKE_CXX_FLAGS "-O3 -fopenmp -fPIC -Wno-deprecated -Wenum-compare -std=c++14")
 set(CMAKE_CXX_FLAGS "-O3 -fopenmp -fPIC -Wno-deprecated -Wenum-compare -Wno-ignored-attributes -std=c++14")
