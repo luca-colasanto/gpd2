@@ -148,7 +148,7 @@ target_link_libraries(${PROJECT_NAME}_grasp_detector
   ${PROJECT_NAME}_hand_geometry
   ${PROJECT_NAME}_hand_set
   ${PROJECT_NAME}_config_file
-${PROJECT_NAME}_plot)
+  ${PROJECT_NAME}_plot)
 
 target_link_libraries(${PROJECT_NAME}_generate_candidates
   ${PROJECT_NAME}_config_file

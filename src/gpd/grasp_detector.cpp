@@ -21,8 +21,7 @@ GraspDetector::GraspDetector(const std::string& config_filename) {
   // Read plotting parameters.
   plot_normals_ = config_file.getValueOfKey<bool>("plot_normals", false);
   plot_samples_ = config_file.getValueOfKey<bool>("plot_samples", true);
-  bool plot_candidates =
-      config_file.getValueOfKey<bool>("plot_candidates", false);
+  plot_candidates_ = config_file.getValueOfKey<bool>("plot_candidates", false);
   plot_filtered_candidates_ =
       config_file.getValueOfKey<bool>("plot_filtered_candidates", false);
   plot_volumes_ = config_file.getValueOfKey<bool>("plot_volumes", false);
@@ -35,7 +34,7 @@ GraspDetector::GraspDetector(const std::string& config_filename) {
   std::cout << "============ PLOTTING ========================\n";
   std::cout << "plot_normals: " << plot_normals_ << "\n";
   std::cout << "plot_samples: " << plot_samples_ << "\n";
-  std::cout << "plot_candidates: " << plot_candidates << "\n";
+  std::cout << "plot_candidates: " << plot_candidates_ << "\n";
   std::cout << "plot_filtered_candidates: " << plot_filtered_candidates_
             << "\n";
   std::cout << "plot_volumes_: " << plot_volumes_ << "\n";
@@ -50,8 +49,6 @@ GraspDetector::GraspDetector(const std::string& config_filename) {
       config_file.getValueOfKey<int>("num_samples", 1000);
   generator_params.num_threads_ =
       config_file.getValueOfKey<int>("num_threads", 1);
-  generator_params.plot_normals_ = plot_normals_;
-  generator_params.plot_grasps_ = plot_candidates;
   generator_params.remove_statistical_outliers_ =
       config_file.getValueOfKey<bool>("remove_outliers", false);
   generator_params.voxelize_ =
@@ -112,13 +109,10 @@ GraspDetector::GraspDetector(const std::string& config_filename) {
         model_file, weights_file, static_cast<net::Classifier::Device>(device),
         batch_size);
     min_score_ = config_file.getValueOfKey<int>("min_score", 0);
-    create_image_batches_ =
-        config_file.getValueOfKey<bool>("create_image_batches", false);
     std::cout << "============ CLASSIFIER ======================\n";
     std::cout << "model_file: " << model_file << "\n";
     std::cout << "weights_file: " << weights_file << "\n";
     std::cout << "min_score: " << min_score_ << "\n";
-    std::cout << "create_image_batches: " << create_image_batches_ << "\n";
     std::cout << "==============================================\n";
   }
 
@@ -208,6 +202,10 @@ std::vector<std::unique_ptr<candidate::Hand>> GraspDetector::detectGrasps(
     return hands_out;
   }
   double t_candidates = omp_get_wtime() - t0_candidates;
+  if (plot_candidates_) {
+    plotter_->plotFingers3D(hand_set_list, cloud.getCloudOriginal(),
+                            "Grasp candidates", hand_geom);
+  }
 
   // 2. Filter the candidates.
   double t0_filter = omp_get_wtime();

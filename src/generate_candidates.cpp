@@ -101,9 +101,6 @@ int DoMain(int argc, char *argv[]) {
   candidate::CandidatesGenerator::Parameters generator_params;
   generator_params.num_samples_ = num_samples;
   generator_params.num_threads_ = num_threads;
-  generator_params.plot_normals_ = plot_normals;
-  generator_params.plot_all_grasps_ = plot_all_grasps;
-  generator_params.plot_grasps_ = plot_grasps;
   generator_params.remove_statistical_outliers_ = remove_outliers;
   generator_params.voxelize_ = voxelize;
   generator_params.workspace_ = workspace;

@@ -36,7 +36,7 @@ The reference for this package is:
 1. [CNN Frameworks](#cnn_frameworks)
 1. [GPU Support With PCL](#pcl_gpu)
 1. [Network Training](#net_train)
-1. [Python Bindings](#python)
+1. [Grasp Image](#descriptor)
 1. [References](#References)
 
 <a name="requirements"></a>
@@ -88,13 +88,9 @@ The output should look similar to the screenshot shown below. The window is the 
 
 <img src="readme/file.png" alt="" width="30%" border="0" />
 
-Generate some grasp poses and their corresponding images/descriptors:
+Below is a visualization of the convention that GPD uses for the grasp pose (position and orientation) of a grasp. The grasp position is indicated by the orange cross and the orientation by the colored arrows.
 
-   ```
-   ./test_grasp_image ../tutorials/krylon.pcd 3456 1 ../lenet/15channels/params/
-   ```
-
-<img src="readme/image_15channels.png" alt="" width="30%" border="0" />
+<img src="readme/hand_frame.png" alt="" width="30%" border="0" />
 
 <a name="parameters"></a>
 ## 4) Parameters
@@ -216,16 +212,17 @@ The third step is to convert the model to the ONNX format.
 
 The last step is to convert the ONNX file to an OpenVINO compatible format: [tutorial](https://software.intel.com/en-us/articles/OpenVINO-Using-ONNX#inpage-nav-4). This gives two files that can be loaded with GPD by modifying the `weight_file` and `model_file` parameters in a CFG file.
 
-<a name="python"></a>
-## 10) Python Bindings
+<a name="descriptor"></a>
+## 10) Grasp Image/Descriptor
+Generate some grasp poses and their corresponding images/descriptors:
 
-**TODO**: Update this section.
+   ```
+   ./test_grasp_image ../tutorials/krylon.pcd 3456 1 ../models/lenet/15channels/params/
+   ```
 
-Status: **In development**
+<img src="readme/image_15channels.png" alt="" width="30%" border="0" />
 
-This package comes with Python bindings, provided through *pybind11*.
-
-Examples: **TODO**
+For details on how the grasp image is created, check out our [journal paper](http://arxiv.org/abs/1706.09911).
 
 <a name="references"></a>
 ## 11) References

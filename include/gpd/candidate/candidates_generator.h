@@ -49,7 +49,6 @@
 #include <gpd/candidate/hand_search.h>
 #include <gpd/candidate/hand_set.h>
 #include <gpd/util/config_file.h>
-#include <gpd/util/plot.h>
 
 namespace gpd {
 namespace candidate {
@@ -68,11 +67,6 @@ class CandidatesGenerator {
    * Parameters for the candidates generator.
    */
   struct Parameters {
-    bool plot_normals_;     ///< if surface normals are plotted
-    bool plot_all_grasps_;  ///< if all grasps are plotted (includes grasps that
-                            /// violate geometric conditions)
-    bool plot_grasps_;      ///< if grasps are plotted (grasps that satisfy
-                            /// geometric conditions)
     bool remove_statistical_outliers_;  ///< if statistical outliers are removed
                                         /// from the point cloud
     bool voxelize_;                     ///< if the point cloud gets voxelized
@@ -131,7 +125,6 @@ class CandidatesGenerator {
 
  private:
   std::unique_ptr<candidate::HandSearch> hand_search_;
-  std::unique_ptr<util::Plot> plotter_;
 
   Parameters params_;
 };
