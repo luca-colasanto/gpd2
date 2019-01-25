@@ -115,7 +115,7 @@ of samples as large as possible.
 ![rviz screenshot](readme/views.png "Single View and Two Views")
 
 You can use this package with a single or with two depth sensors. The package
-comes with weight files for both options. You can find these files in
+comes with CAFFE model files for both options. You can find these files in
 *gpd/caffe/15channels*. For a single sensor, use
 *single_view_15_channels.caffemodel* and for two depth sensors, use
 *two_views_15_channels_[angle]*. The *[angle]* is the angle between the two
@@ -124,8 +124,8 @@ want to register the two point clouds together before sending them to GPD.
 
 ![rviz screenshot](readme/view_angle.png "Angle Between Sensor Views")
 
-To switch between one and two sensor views, change the parameter *trained_file*
-in the launch file *launch/caffe/ur5_15channels.launch*.
+To switch between one and two sensor views, change the parameter `weight_file`
+in your config file.
 
 <a name="cnn_channels"></a>
 ## 6) Input Channels for Neural Network
