@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 project(gpd)
 set(CMAKE_BUILD_TYPE Debug)
 
@@ -7,7 +7,7 @@ include_directories(${EIGEN3_INCLUDE_DIR})
 
 # PCL
 #find_package(PCL 1.9 REQUIRED)
-find_package(PCL 1.8 REQUIRED)
+find_package(PCL 1.7 REQUIRED)
 include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
