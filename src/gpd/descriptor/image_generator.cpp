@@ -65,7 +65,8 @@ void ImageGenerator::createImages(
   printf("neighborhoods search time: %3.4f\n", omp_get_wtime() - t_slice);
 
   createImageList(hand_set_list, nn_points_list, images_out, hands_out);
-  printf("====> IMAGE CREATION TIME: %3.4fs\n", omp_get_wtime() - t0);
+  printf("Created %zu images in %3.4fs\n", images_out.size(),
+         omp_get_wtime() - t0);
 }
 
 void ImageGenerator::createImageList(

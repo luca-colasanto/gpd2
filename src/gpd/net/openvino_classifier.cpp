@@ -83,8 +83,9 @@ std::vector<float> OpenVinoClassifier::classifyImages(
       }
       infer_request_.Infer();
 
-      auto output_data = output_blob_->buffer()
-                             .as<PrecisionTrait<Precision::FP32>::value_type*>();
+      auto output_data =
+          output_blob_->buffer()
+              .as<PrecisionTrait<Precision::FP32>::value_type*>();
       const int resultsCnt = output_blob_->size() / getBatchSize();
 
       for (int j = 0; j < n; j++) {

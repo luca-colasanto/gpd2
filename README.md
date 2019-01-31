@@ -1,24 +1,17 @@
 # Grasp Pose Detection (GPD)
 
-* **Author:** Andreas ten Pas (atp@ccs.neu.edu)
-* **Version:** 1.0.0
-* **Author's website:** [http://www.ccs.neu.edu/home/atp/](http://www.ccs.neu.edu/home/atp/)
-* **License:** BSD
+* [Author's website](http://www.ccs.neu.edu/home/atp/)
+* [License](https://github.com/atenpas/gpd2/blob/master/LICENSE.md)
+* [ROS wrapper](https://github.com/atenpas/gpd2_ros/)
 
-## Overview
-
-This package detects 6-DOF grasp poses (3-DOF position and 3-DOF orientation)
+Grasp Pose Detection (GPD) is a package to detect 6-DOF grasp poses (3-DOF position and 3-DOF orientation)
 for a 2-finger robot hand (e.g., a parallel jaw gripper) in 3D point clouds.
-
-##### UR5 Video
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=kfe5bNt35ZI
 " target="_blank"><img src="readme/ur5_video.jpg"
 alt="UR5 demo" width="320" height="240" border="0" /></a>
 
-Grasp pose detection (GPD) consists of three steps: sampling a large number of grasp
-candidates, classifying these candidates as viable grasps or not, and clustering
-viable grasps which are geometrically similar.
+GPD consists of two main steps: sampling a large number of grasp candidates, and classifying these candidates as viable grasps or not.
 
 ##### Example Input and Output
 <img src="readme/clutter.png" height=170px/>
@@ -135,28 +128,29 @@ the references below.
 <a name="cnn_frameworks"></a>
 ## 7) CNN Frameworks
 
-This package comes with a number of different classifier frameworks that
+GPD comes with a number of different classifier frameworks that
 exploit different hardware and have different dependencies. Switching
-between the frameworks requires to run `cmake` with additional arguments.
+between the frameworks requires to run CMake with additional arguments.
 For example, to use the OpenVino framework:
 
    ```
    cmake .. -DUSE_OPENVINO=ON
    ```
 
-GPD supports the following four frameworks:
+You can use `ccmake` to check out all possible CMake options.
 
-1. Custom LeNet implementation using the Eigen library
+GPD supports the following three frameworks:
+
 1. [OpenVino](https://software.intel.com/en-us/openvino-toolkit)
 (CPUs, GPUs, FPGAs from Intel)
 1. [Caffe](https://caffe.berkeleyvision.org/) (GPUs from Nvidia or CPUs)
-1. (OpenCV's dnn module (CPU, **not implemented yet**))
+1. Custom LeNet implementation using the Eigen library
 
 Additional classifiers can be added by sub-classing the `classifier` interface.
 
-### OpenVino
+##### OpenVino
 
-To use OpenVino, you need to run the following command before running GPD.
+To use OpenVino, you need to run the following command before compiling GPD.
 
    ```
    source /opt/intel/computer_vision_sdk/bin/setupvars.sh
