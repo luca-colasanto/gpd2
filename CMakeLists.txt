@@ -27,7 +27,7 @@ set(CMAKE_CXX_FLAGS "-O3 -fopenmp -fPIC -Wno-deprecated -Wenum-compare -Wno-igno
 include_directories(include ${PCL_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
 
 # Classifier depends on what libraries are installed.
-option(USE_OPENVINO "use classifier based on OpenVINO toolkit" OFF)
+option(USE_OPENVINO "use classifier based on OpenVINO toolkit" ON)
 option(USE_CAFFE "use classifier based on Caffe framework" OFF)
 option(USE_OPENCV "use classifier based on OpenCV framework" OFF)
 if(USE_OPENVINO STREQUAL "ON")
