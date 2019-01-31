@@ -13,8 +13,8 @@ link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
 # OpenCV
-#find_package(OpenCV REQUIRED)
-find_package(OpenCV REQUIRED PATHS /usr/local NO_DEFAULT_PATH)
+find_package(OpenCV REQUIRED)
+#find_package(OpenCV REQUIRED PATHS /usr/local NO_DEFAULT_PATH)
 
 ## Set compiler optimization flags
 # set(CMAKE_CXX_FLAGS "-O3 -fopenmp -fPIC -Wno-deprecated -Wenum-compare -std=c++14")
@@ -51,7 +51,8 @@ elseif(USE_CAFFE STREQUAL "ON")
   endif()
   include_directories(${Caffe_INCLUDE_DIRS})
   add_definitions(${Caffe_DEFINITIONS})
-  set(classifier_src src/${PROJECT_NAME}/classifier.cpp src/${PROJECT_NAME}/net/caffe_classifier.cpp)
+  add_definitions(-DUSE_CAFFE)
+  set(classifier_src src/${PROJECT_NAME}/net/classifier.cpp src/${PROJECT_NAME}/net/caffe_classifier.cpp)
   set(classifier_dep ${Caffe_LIBRARIES} ${OpenCV_LIBRARIES})
 elseif(USE_OPENCV STREQUAL "ON")
   message(FATAL_ERROR "Not supported yet")
@@ -80,7 +81,6 @@ if(BUILD_DATA_GENERATION STREQUAL "ON")
   add_library(${PROJECT_NAME}_data_generator src/${PROJECT_NAME}/data_generator.cpp)
   target_link_libraries(${PROJECT_NAME}_data_generator
    ${PROJECT_NAME}_grasp_detector
-   ${GENERATOR_LIB}
    ${PCL_LIBRARIES}
    ${OpenCV_LIBS})
   add_executable(${PROJECT_NAME}_generate_data src/generate_data.cpp)
@@ -248,7 +248,6 @@ ${PCL_LIBRARIES})
 
 target_link_libraries(${PROJECT_NAME}_detect_grasps
   ${PROJECT_NAME}_grasp_detector
-  ${GENERATOR_LIB}
   ${PROJECT_NAME}_config_file
 ${PCL_LIBRARIES})
 
@@ -258,7 +257,8 @@ target_link_libraries(${PROJECT_NAME}_cem_detect_grasps
   ${PCL_LIBRARIES})
 
 target_link_libraries(${PROJECT_NAME}_image_generator
-${GENERATOR_LIB})
+  ${PROJECT_NAME}_hand_set
+  ${PROJECT_NAME}_image_strategy)
 
 # Rename targets to simplify their names.
 set_target_properties(${PROJECT_NAME}_test_grasp_image

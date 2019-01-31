@@ -51,7 +51,8 @@ std::shared_ptr<Classifier> Classifier::create(const std::string& model_file,
   return std::make_shared<OpenVinoClassifier>(model_file, weights_file, device,
                                               batch_size);
 #elif defined(USE_CAFFE)
-  return std::make_shared<CaffeClassifier>(model_file, weights_file, device);
+  return std::make_shared<CaffeClassifier>(model_file, weights_file, device,
+                                           batch_size);
 #elif defined(USE_OPENCV)
   return std::make_shared<OpenCvClassifier>(model_file, weights_file, device);
 #else

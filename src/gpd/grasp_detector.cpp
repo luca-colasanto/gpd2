@@ -112,7 +112,7 @@ GraspDetector::GraspDetector(const std::string& config_filename) {
     std::cout << "============ CLASSIFIER ======================\n";
     std::cout << "model_file: " << model_file << "\n";
     std::cout << "weights_file: " << weights_file << "\n";
-    std::cout << "min_score: " << min_score_ << "\n";
+    std::cout << "batch_size: " << batch_size << "\n";
     std::cout << "==============================================\n";
   }
 
