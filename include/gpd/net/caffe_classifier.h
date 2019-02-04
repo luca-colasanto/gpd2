@@ -46,6 +46,9 @@
 
 #include <gpd/net/classifier.h>
 
+namespace gpd {
+namespace net {
+
 /** CaffeClassifier class
  *
  * \brief Classify grasp candidates as viable grasps or not
@@ -81,5 +84,8 @@ class CaffeClassifier : public Classifier {
   boost::shared_ptr<caffe::MemoryDataLayer<float>>
       input_layer_;  ///< the input layer of the network
 };
+
+}  // namespace net
+}  // namespace gpd
 
 #endif /* CAFFE_CLASSIFIER_H_ */

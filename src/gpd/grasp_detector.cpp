@@ -51,6 +51,8 @@ GraspDetector::GraspDetector(const std::string& config_filename) {
       config_file.getValueOfKey<int>("num_threads", 1);
   generator_params.remove_statistical_outliers_ =
       config_file.getValueOfKey<bool>("remove_outliers", false);
+  generator_params.sample_above_plane_ =
+      config_file.getValueOfKey<bool>("sample_above_plane", false);
   generator_params.voxelize_ =
       config_file.getValueOfKey<bool>("voxelize", true);
   generator_params.workspace_ =
@@ -112,7 +114,7 @@ GraspDetector::GraspDetector(const std::string& config_filename) {
     std::cout << "============ CLASSIFIER ======================\n";
     std::cout << "model_file: " << model_file << "\n";
     std::cout << "weights_file: " << weights_file << "\n";
-    std::cout << "min_score: " << min_score_ << "\n";
+    std::cout << "batch_size: " << batch_size << "\n";
     std::cout << "==============================================\n";
   }
 

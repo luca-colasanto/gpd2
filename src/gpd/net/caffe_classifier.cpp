@@ -1,5 +1,8 @@
 #include <gpd/net/caffe_classifier.h>
 
+namespace gpd {
+namespace net {
+
 CaffeClassifier::CaffeClassifier(const std::string& model_file,
                                  const std::string& weights_file,
                                  Classifier::Device device, int batch_size) {
@@ -18,7 +21,7 @@ CaffeClassifier::CaffeClassifier(const std::string& model_file,
 
   input_layer_ = boost::static_pointer_cast<caffe::MemoryDataLayer<float>>(
       net_->layer_by_name("data"));
-  input_layer_->setBatchSize(batch_size);
+  input_layer_->set_batch_size(batch_size);
 }
 
 std::vector<float> CaffeClassifier::classifyImages(
@@ -34,21 +37,17 @@ std::vector<float> CaffeClassifier::classifyImages(
 
   // Process the images in batches.
   for (int i = 0; i < num_iterations; i++) {
-    std::vector<cv::Mat>::const_iterator end_it;
     std::vector<cv::Mat> sub_image_list;
 
     if (i < num_iterations - 1) {
-      end_it = image_list.begin() + (i + 1) * batch_size;
-      sub_image_list.assign(image_list.begin() + i * batch_size, end_it);
-    }
-    // Fill the batch with empty images to match the required batch size.
-    else {
-      end_it = image_list.end();
-      sub_image_list.assign(image_list.begin() + i * batch_size, end_it);
-      std::cout << "Adding " << batch_size - sub_image_list.size()
-                << " empty images to batch to match batch size.\n";
-
-      for (int t = sub_image_list.size(); t < batch_size; t++) {
+      for (int j = 0; j < batch_size; j++) {
+        sub_image_list.push_back(*image_list[i * batch_size + j]);
+      }
+    } else {
+      for (int j = 0; j < image_list.size() - i * batch_size; j++) {
+        sub_image_list.push_back(*image_list[i * batch_size + j]);
+      }
+      for (int j = sub_image_list.size(); j < batch_size; j++) {
         cv::Mat empty_mat(input_layer_->height(), input_layer_->width(),
                           CV_8UC(input_layer_->channels()), cv::Scalar(0.0));
         sub_image_list.push_back(empty_mat);
@@ -67,15 +66,14 @@ std::vector<float> CaffeClassifier::classifyImages(
     std::vector<caffe::Blob<float>*> results = net_->Forward(&loss);
     std::vector<float> out(results[0]->cpu_data(),
                            results[0]->cpu_data() + results[0]->count());
-    //    std::cout << "#results: " << results.size() << ", " <<
-    //    results[0]->count() << "\n";
 
     for (int l = 0; l < results[0]->count() / results[0]->channels(); l++) {
       predictions.push_back(out[2 * l + 1] - out[2 * l]);
-      //      std::cout << "positive score: " << out[2 * l + 1] << ", negative
-      //      score: " << out[2 * l] << "\n";
     }
   }
 
   return predictions;
 }
+
+}  // namespace net
+}  // namespace gpd

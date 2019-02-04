@@ -101,8 +101,8 @@ void Image12ChannelsStrategy::showImage(const cv::Mat& image) const {
     }
     cv::merge(normals_channels, normals_rgb);
     // OpenCV requires images to be in BGR or grayscale to be displayed.
-    cvtColor(normals_rgb, normals_rgb, CV_RGB2BGR);
-    cvtColor(channels[i * 4 + 3], depth_rgb, CV_GRAY2RGB);
+    cvtColor(normals_rgb, normals_rgb, cv::COLOR_RGB2BGR);
+    cvtColor(channels[i * 4 + 3], depth_rgb, cv::COLOR_GRAY2RGB);
     normals_rgb.copyTo(image_out(cv::Rect(
         border, border + i * (border + image_size), image_size, image_size)));
     depth_rgb.copyTo(image_out(cv::Rect(2 * border + image_size,

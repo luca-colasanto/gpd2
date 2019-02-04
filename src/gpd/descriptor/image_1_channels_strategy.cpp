@@ -41,7 +41,7 @@ void Image1ChannelsStrategy::createImage(const util::PointList& point_list,
     std::string title = "Grasp Image (1 channel)";
     cv::namedWindow(title, cv::WINDOW_NORMAL);
     cv::Mat image_rgb;
-    cvtColor(image, image_rgb, CV_GRAY2RGB);
+    cvtColor(image, image_rgb, cv::COLOR_GRAY2RGB);
     cv::imshow(title, image_rgb);
     cv::waitKey(0);
   }
