@@ -67,13 +67,16 @@ int DoMain(int argc, char *argv[]) {
       config_file.getValueOfKeyAsStdVectorDouble("workspace", "-1 1 -1 1 -1 1");
   int num_threads = config_file.getValueOfKey<int>("num_threads", 1);
   int num_samples = config_file.getValueOfKey<int>("num_samples", 100);
+  bool sample_above_plane = config_file.getValueOfKey<int>("sample_above_plane", 1);
   printf("num_threads: %d, num_samples: %d\n", num_threads, num_samples);
 
   // Prepare the point cloud.
   cloud.filterWorkspace(workspace);
   cloud.voxelizeCloud(VOXEL_SIZE);
   cloud.calculateNormals(num_threads);
-  cloud.sampleAbovePlane();
+  if (sample_above_plane) {
+    cloud.sampleAbovePlane();
+  }
   cloud.subsampleSampleIndices(num_samples);
 
   // Detect grasp poses.
