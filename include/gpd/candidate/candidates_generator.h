@@ -69,7 +69,8 @@ class CandidatesGenerator {
   struct Parameters {
     bool remove_statistical_outliers_;  ///< if statistical outliers are removed
                                         /// from the point cloud
-    bool voxelize_;                     ///< if the point cloud gets voxelized
+    bool sample_above_plane_;  ///< if samples are drawn above the support plane
+    bool voxelize_;            ///< if the point cloud gets voxelized
     int num_samples_;  ///< the number of samples to be used in the search
     int num_threads_;  ///< the number of CPU threads to be used in the search
     std::vector<double> workspace_;  ///< the robot's workspace
@@ -87,7 +88,7 @@ class CandidatesGenerator {
    * \brief Preprocess the point cloud.
    * \param cloud_cam the point cloud
    */
-  void preprocessPointCloud(util::Cloud& cloud_cam);
+  void preprocessPointCloud(util::Cloud& cloud);
 
   /**
    * \brief Generate grasp candidates given a point cloud.

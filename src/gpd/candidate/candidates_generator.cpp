@@ -11,18 +11,21 @@ CandidatesGenerator::CandidatesGenerator(
   hand_search_ = std::make_unique<candidate::HandSearch>(hand_search_params);
 }
 
-void CandidatesGenerator::preprocessPointCloud(util::Cloud &cloud_cam) {
+void CandidatesGenerator::preprocessPointCloud(util::Cloud &cloud) {
   const double VOXEL_SIZE = 0.003;
 
-  std::cout << "Processing cloud with: " << cloud_cam.getCloudOriginal()->size()
-            << " points.\n";
+  printf("Processing cloud with %zu points.\n",
+         cloud.getCloudOriginal()->size());
 
-  cloud_cam.filterWorkspace(params_.workspace_);
+  cloud.filterWorkspace(params_.workspace_);
   if (params_.voxelize_) {
-    cloud_cam.voxelizeCloud(VOXEL_SIZE);
+    cloud.voxelizeCloud(VOXEL_SIZE);
   }
-  cloud_cam.calculateNormals(params_.num_threads_);
-  cloud_cam.subsample(params_.num_samples_);
+  cloud.calculateNormals(params_.num_threads_);
+  if (params_.sample_above_plane_) {
+    cloud.sampleAbovePlane();
+  }
+  cloud.subsample(params_.num_samples_);
 }
 
 std::vector<std::unique_ptr<Hand>> CandidatesGenerator::generateGraspCandidates(
